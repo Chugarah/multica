@@ -30,6 +30,10 @@ dist-electron
 backups/
 logs/
 
+# Local-only compose overlay used during the dry-run procedure
+# (docs/deployment/local-dry-run.md). Never ship to the server.
+docker-compose.prod.override.yml
+
 # test coverage
 coverage
 

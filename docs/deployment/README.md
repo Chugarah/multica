@@ -24,6 +24,7 @@ Internet
 
 | File | Purpose |
 |---|---|
+| [local-dry-run.md](local-dry-run.md) | Smoke-test the production stack on your dev machine before shipping to the server. |
 | [windows-server-setup.md](windows-server-setup.md) | One-time Windows host prep: WSL2, Docker Desktop, RDP, optional OpenSSH. |
 | [cloudflare-tunnel.md](cloudflare-tunnel.md) | Create the `multica-home` tunnel, its three ingress rules, and three Access apps. |
 | [admin-access.md](admin-access.md) | How to RDP/SSH into the server via Cloudflare Access. |
