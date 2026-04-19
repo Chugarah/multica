@@ -69,4 +69,9 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
+# No /api/health route exists; the homepage is served by the Next standalone
+# server and returns 200 once the process is ready to accept traffic.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD node -e "require('http').get('http://127.0.0.1:3000/',r=>process.exit(r.statusCode<500?0:1)).on('error',()=>process.exit(1))"
+
 CMD ["node", "apps/web/server.js"]

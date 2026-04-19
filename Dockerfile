@@ -22,7 +22,7 @@ RUN cd server && CGO_ENABLED=0 go build -ldflags "-s -w" -o bin/migrate ./cmd/mi
 # --- Runtime stage ---
 FROM alpine:3.21
 
-RUN apk add --no-cache ca-certificates tzdata
+RUN apk add --no-cache ca-certificates tzdata wget
 
 WORKDIR /app
 
@@ -33,6 +33,15 @@ COPY server/migrations/ ./migrations/
 COPY docker/entrypoint.sh .
 RUN sed -i 's/\r$//' entrypoint.sh && chmod +x entrypoint.sh
 
+# Run as non-root. /app/data is the upload fallback; chown so the user can write.
+RUN addgroup -S multica && adduser -S -G multica multica \
+    && mkdir -p /app/data/uploads \
+    && chown -R multica:multica /app
+USER multica
+
 EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD wget -qO- http://127.0.0.1:8080/health >/dev/null 2>&1 || exit 1
 
 ENTRYPOINT ["./entrypoint.sh"]

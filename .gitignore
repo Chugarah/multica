@@ -20,9 +20,15 @@ dist-electron
 # env
 .env*
 !.env.example
+!.env.production.example
 # Desktop production config is public (backend URL, etc.) — track it so
 # `pnpm package` produces a release-ready build without extra setup.
 !apps/desktop/.env.production
+
+# Production deployment runtime artifacts (live next to docker-compose.prod.yml
+# on the server; never committed)
+backups/
+logs/
 
 # test coverage
 coverage

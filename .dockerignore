@@ -16,6 +16,7 @@ server/tmp
 .env
 .env.*
 !.env.example
+!.env.production.example
 
 # IDE
 .idea
@@ -36,3 +37,8 @@ docs/
 
 # Desktop app (not needed for web self-hosting)
 apps/desktop
+
+# Production deployment artifacts and Windows scripts (not used by container builds)
+scripts/windows/
+backups/
+logs/
