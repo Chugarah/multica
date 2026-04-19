@@ -1,0 +1,13 @@
+# Drop this file at %USERPROFILE%\.wslconfig on the Windows Server.
+# Caps WSL2's hidden Linux VM so Docker Desktop doesn't grow to eat the
+# entire 7 GB host. Tune `memory` upward later if steady-state containers
+# push against the ceiling.
+#
+# After saving, run `wsl --shutdown` once; the cap kicks in next boot.
+
+[wsl2]
+memory=4GB
+processors=2
+swap=2GB
+# Uncomment if you see disk pressure on C:\. Relocates the WSL2 vhdx to D:\.
+# vhdx=D:\\wsl\\ext4.vhdx

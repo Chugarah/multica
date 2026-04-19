@@ -364,6 +364,14 @@ make check
 
 By default, bump the patch version each release (e.g. `v0.1.12` → `v0.1.13`), unless the user specifies a specific version.
 
+## Production deployment
+
+The production deployment target is a home Windows Server 2019 (`192.168.1.162`) running Docker Desktop + WSL2, fronted by a Cloudflare Tunnel (`multica-home`) with Cloudflare Access SSO. AirVPN Eddie runs on the host; we deliberately do NOT run Tailscale alongside it. Admin access (RDP and optional SSH) goes through the same `cloudflared` sidecar as the public site. See `docs/deployment/README.md` for the index. Key files:
+
+- `docker-compose.prod.yml` — production stack (never edit `docker-compose.selfhost.yml` as a proxy for this; they serve different purposes).
+- `.env.production.example` — required env template; `.env.production` stays on the server only.
+- `scripts/windows/*.ps1` + `deploy.cmd` — lifecycle scripts.
+
 ## Multi-tenancy
 
 All queries filter by `workspace_id`. Membership checks gate access. `X-Workspace-ID` header routes requests to the correct workspace.
